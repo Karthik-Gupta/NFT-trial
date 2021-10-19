@@ -32,7 +32,7 @@ contract Knights is ERC721URIStorage {
     }
     
     modifier knightOwnerPrivilege(uint tId) {
-        require(ownerOf(tId) == knightCollection[tId].currentOwner, "Knight: Ownership dispute");
+        require(ownerOf(tId) == knightCollection[tId].owner, "Knight: Ownership dispute");
         require(msg.sender == ownerOf(tId), "Knight: You are not permitted");
         _;
     }
@@ -59,7 +59,7 @@ contract Knights is ERC721URIStorage {
         require(msg.value >= kInstance.price, "Knight: Insufficient funds");
         require(kInstance.forSale, "Knight: Not for sale");
         address knightCurrentOwner = ownerOf(_knightTokenId);
-        require(knightCurrentOwner == kInstance.currentOwner, "Knight: Knight ownership dispute");
+        require(knightCurrentOwner == kInstance.owner, "Knight: Knight ownership dispute");
         super.safeTransferFrom(knightCurrentOwner, msg.sender, _knightTokenId);
         payable(knightCurrentOwner).transfer(msg.value);
         kInstance.owner = msg.sender;
@@ -70,10 +70,9 @@ contract Knights is ERC721URIStorage {
     }
     
     function setForSale(uint _knightTokenId, bool _forSale) external knightOwnerPrivilege(_knightTokenId) {
-        Knight memory knightInst = knightCollection[_knightTokenId];
+        Knight storage knightInst = knightCollection[_knightTokenId];
         knightInst.forSale = _forSale;
         emit KnightForSale(_knightTokenId, knightInst.tokenUri, knightInst.owner, _forSale);
-        knightCollection[_knightTokenId] = knightInst;
     }
 
 }
