@@ -12,10 +12,10 @@ contract Knights is ERC721URIStorage {
 
     struct Knight {
         uint tokenId;
-        string tokenUri;
-        address owner;
         uint price;
         uint numberOfTransfers;
+        string tokenUri;
+        address owner;
         bool forSale;
     }
 
@@ -49,7 +49,7 @@ contract Knights is ERC721URIStorage {
         _setTokenURI(tokenCounterId, _tokenUri);
         tokenURIExists[_tokenUri] = true;
         knightsCount = tokenCounterId;
-        knightCollection[tokenCounterId] = Knight(tokenCounterId, _tokenUri, msg.sender, _price, 0, _putOnSale);
+        knightCollection[tokenCounterId] = Knight(tokenCounterId, _price, 0, _tokenUri, msg.sender, _putOnSale);
         emit KnightGenerated(tokenCounterId, _tokenUri, msg.sender, _price, _putOnSale);
         return tokenCounterId;
     }
@@ -74,5 +74,4 @@ contract Knights is ERC721URIStorage {
         knightInst.forSale = _forSale;
         emit KnightForSale(_knightTokenId, knightInst.tokenUri, knightInst.owner, _forSale);
     }
-
 }
