@@ -1,2 +1,3 @@
-# knight-dapp
-NFT marketplace decentralised applicaiton
+# Knight dApp
+
+A decentralized NFT marketplace
