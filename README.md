@@ -1,4 +1,4 @@
 # Knight dApp
 
 A decentralized NFT marketplace
-<TODO - Base contract is in place with test coverage>
+<TODO - At the moment base contract is in place with test coverage>
