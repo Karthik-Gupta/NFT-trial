@@ -37,12 +37,18 @@ contract Knights is ERC721URIStorage {
         _;
     }
 
-    function incrementAndGet() internal returns (uint) {
+    function incrementAndGet() 
+    internal 
+    returns (uint) 
+    {
         _tokenId.increment();
         return _tokenId.current();
     }
 
-    function mintKnight(string memory _tokenUri, uint _price, bool _putOnSale) external returns (uint) {
+    function mintKnight(string memory _tokenUri, uint _price, bool _putOnSale) 
+    external 
+    returns (uint) 
+    {
         require(!tokenURIExists[_tokenUri], "Knight: URI already minted");
         uint tokenCounterId = incrementAndGet();
         _safeMint(msg.sender, tokenCounterId);
@@ -54,7 +60,10 @@ contract Knights is ERC721URIStorage {
         return tokenCounterId;
     }
 
-    function buyKnight(uint _knightTokenId) external payable {
+    function buyKnight(uint _knightTokenId) 
+    external 
+    payable 
+    {
         Knight memory kInstance = knightCollection[_knightTokenId];
         require(msg.value >= kInstance.price, "Knight: Insufficient funds");
         require(kInstance.forSale, "Knight: Not for sale");
@@ -69,7 +78,10 @@ contract Knights is ERC721URIStorage {
         knightCollection[_knightTokenId] = kInstance;
     }
     
-    function setForSale(uint _knightTokenId, bool _forSale) external knightOwnerPrivilege(_knightTokenId) {
+    function setForSale(uint _knightTokenId, bool _forSale) 
+    external 
+    knightOwnerPrivilege(_knightTokenId) 
+    {
         Knight storage knightInst = knightCollection[_knightTokenId];
         knightInst.forSale = _forSale;
         emit KnightForSale(_knightTokenId, knightInst.tokenUri, knightInst.owner, _forSale);
