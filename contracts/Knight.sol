@@ -20,7 +20,6 @@ contract Knights is ERC721URIStorage {
     }
 
     mapping(uint => Knight) public knightCollection;
-    /* check if token URI exists */
     mapping(string => bool) public tokenURIExists;
 
     event KnightGenerated(uint tokenId, string tokenUri, address mintedBy, uint price, bool forSale);
